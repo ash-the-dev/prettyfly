@@ -1,26 +1,85 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --accent-rgb: 124 255 107;
+  --accent2-rgb: 107 140 255;
+  --accent-soft: rgb(var(--accent-rgb) / 0.14);
+  --accent-glow: rgb(var(--accent-rgb) / 0.35);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+html[data-fly-palette="lime"] {
+  --accent-rgb: 124 255 107;
+  --accent2-rgb: 107 140 255;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html[data-fly-palette="magenta"] {
+  --accent-rgb: 255 77 195;
+  --accent2-rgb: 120 220 255;
+}
+
+html[data-fly-palette="ember"] {
+  --accent-rgb: 255 163 72;
+  --accent2-rgb: 255 92 138;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+html,
+body {
+  height: 100%;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  @apply font-sans text-fly-cream antialiased;
+  background: radial-gradient(1200px 800px at 15% -10%, rgb(var(--accent-rgb) / 0.12), transparent 55%),
+    radial-gradient(900px 600px at 95% 10%, rgb(var(--accent2-rgb) / 0.1), transparent 50%),
+    #06060a;
+  text-rendering: optimizeLegibility;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.035;
+  z-index: 50;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+::selection {
+  background: rgb(var(--accent-rgb) / 0.35);
+  color: #06060a;
+}
+
+@layer utilities {
+  .container-max {
+    @apply mx-auto max-w-6xl px-4 sm:px-6;
+  }
+
+  .text-gradient-fly {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(
+      115deg,
+      rgb(var(--accent-rgb)) 0%,
+      rgb(var(--accent2-rgb)) 48%,
+      rgb(var(--accent-rgb)) 100%
+    );
+    background-size: 200% auto;
+  }
+
+  .border-glow {
+    box-shadow: 0 0 0 1px rgb(var(--accent-rgb) / 0.22), 0 0 40px -8px rgb(var(--accent-rgb) / 0.25);
+  }
+
+  .mesh-grid {
+    background-image: linear-gradient(rgb(255 255 255 / 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(255 255 255 / 0.04) 1px, transparent 1px);
+    background-size: 56px 56px;
+    mask-image: radial-gradient(ellipse 80% 70% at 50% 0%, black 20%, transparent 75%);
+  }
 }
