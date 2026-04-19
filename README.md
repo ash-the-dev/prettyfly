@@ -1,36 +1,73 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Pretty Fly for a Website
+> Boutique design studio energy. Built for modern web experiences.
 
-## Getting Started
+Pretty Fly for a Website is a frontend-driven project focused on crafting bold, high-polish web interfaces with strong visual identity and interaction design.
 
-First, run the development server:
+This project explores how design, motion, and structure come together to create experiences that feel intentional, responsive, and engaging from the first impression.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Live Site
+https://prettyflyforawebsite.com
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## What this project showcases
+- Brand-forward UI design  
+- Responsive, layout-driven interfaces  
+- Motion and micro-interactions  
+- Modern frontend architecture using Next.js  
+- Clean visual hierarchy and typography  
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## Studio Concept
 
-To learn more about Next.js, take a look at the following resources:
+This project is designed as a boutique studio-style experience, blending:
+- design systems  
+- interaction design  
+- frontend engineering  
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The goal is to move beyond “just a website” and create something that feels like a product, a brand, and a system at the same time.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## Key Sections
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **Hero + Studio Identity** – Strong first impression with dynamic styling and theme variations  
+- **Capabilities** – Design, motion, and engineering as unified disciplines  
+- **Work Showcase** – Concept-driven project presentation  
+- **Process (“Flight Plan”)** – Transparent breakdown of how projects move from idea to launch  
+- **Contact Experience** – Structured, user-friendly intake flow  
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## Tech Stack
+- Next.js  
+- React  
+- Modern CSS / design system approach  
+- Responsive layout techniques  
+- Component-based architecture  
+
+---
+
+## Purpose
+
+Pretty Fly for a Website was built to push beyond standard portfolio layouts and explore how a frontend can communicate tone, brand, and experience—not just information.
+
+It serves as both:
+- a portfolio piece  
+- a design exploration  
+- a demonstration of frontend execution and polish  
+
+---
+
+## How it fits into my work
+
+This project represents my frontend and design-focused work, complementing more system-heavy projects like SecureMeBuddy.
+
+Together, they show both sides of my approach:
+- product + backend thinking  
+- interface + experience design  
+
+---
+
+This project is actively evolving with new design iterations, refinements, and improvements.
