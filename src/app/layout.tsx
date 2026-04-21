@@ -1,6 +1,7 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { Outfit, Syne } from "next/font/google";
+import Script from "next/script";
 
 import { siteName, siteUrl } from "@/config/site";
 
@@ -68,6 +69,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+        <Script
+          src="https://www.commithappens.com/tracker/wip.js"
+          strategy="afterInteractive"
+          data-site-key="850358a6-adcb-4dfe-99b0-1a8899d49831"
         />
         {children}
       </body>
