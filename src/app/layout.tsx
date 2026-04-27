@@ -73,7 +73,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Script
           src="https://www.commithappens.com/tracker/wip.js"
           strategy="afterInteractive"
-          data-site-key="850358a6-adcb-4dfe-99b0-1a8899d49831"
+          data-site-key="eaba557f-dad4-4cd6-bd48-f004f7f807d4"
         />
         {children}
       </body>
