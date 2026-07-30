@@ -1,0 +1,108 @@
+---
+title: "Why Is My Website So Slow?"
+description: "A practical breakdown of large images, bloated scripts, weak hosting, fonts, third-party tools, and Core Web Vitals."
+slug: "why-is-my-website-so-slow"
+published: "2026-07-29"
+updated: "2026-07-29"
+author: "Ash Morales"
+authorSlug: "ash-morales"
+category: "performance"
+readingTime: "11 min read"
+featured: true
+popular: true
+checklist: false
+related:
+  - "small-business-website-health-checklist"
+  - "how-often-should-you-check-your-website"
+  - "why-website-gets-impressions-but-no-clicks"
+sources:
+  - label: "web.dev Core Web Vitals"
+    href: "https://web.dev/articles/vitals"
+  - label: "Google PageSpeed Insights"
+    href: "https://pagespeed.web.dev/"
+faqs:
+  - question: "Is my hosting always the problem?"
+    answer: "No. Hosting can matter, but images, scripts, fonts, and caching are often bigger problems on small sites."
+  - question: "Do third-party scripts really matter?"
+    answer: "Yes. They can delay rendering and interaction, especially when many scripts load on every page."
+  - question: "Should I remove all animations?"
+    answer: "Not necessarily. Keep motion lightweight, respectful of reduced-motion preferences, and secondary to readability."
+commitCallout:
+  heading: "Slowdowns are easier to fix when you notice them."
+  body: "Commit Happens can monitor website performance over time so new scripts, heavy images, or deployment changes do not quietly become the new normal."
+  href: "https://www.commithappens.com/website-performance-monitoring"
+  label: "Monitor website performance"
+---
+
+Most slow websites are slowed by oversized images, too much JavaScript, heavy third-party scripts, slow hosting responses, render-blocking fonts, weak caching, or mobile layouts that ask small devices to do too much work.
+
+Start by verifying the problem on real pages. Then fix the biggest things first: image weight, server response, scripts that block rendering, and the templates that matter most to visitors.
+
+<FlowDiagram steps="Request page | Server responds | HTML arrives | Images and scripts load | Main content paints | User can interact" />
+
+## How to verify that the site is actually slow
+
+Do not rely on one test, one device, or one dramatic screenshot. Use PageSpeed Insights, Lighthouse, browser DevTools, and your own phone on a normal connection. Test the homepage, a key landing page, and an article or product page. Different templates often have different problems.
+
+Separate lab data from field data. Lab tests are controlled and useful for debugging. Field data reflects real users when enough data exists.
+
+## Large images
+
+Large images are the classic performance tax because they are easy to upload and easy to forget. A hero image displayed at 900 pixels wide does not need to be a 5000-pixel original.
+
+Export reasonable sizes, use modern formats where possible, and provide dimensions so the layout does not jump. Prioritize images above the fold because the largest visible image often affects Largest Contentful Paint.
+
+## JavaScript
+
+JavaScript can delay rendering, block interaction, and make a simple page behave like a small appliance. Frameworks are not the enemy, but unnecessary client-side code is expensive.
+
+Remove unused widgets, avoid heavy libraries for minor effects, split client components carefully, and keep interactive code focused on things users actually interact with.
+
+## Third-party scripts
+
+Analytics, chat widgets, heatmaps, ad pixels, tag managers, review badges, and scheduling tools can all add delays. Each script may be reasonable alone. Together they can make the page feel sluggish.
+
+Audit every third-party script. Ask what it does, whether anyone uses the data, whether it must load on every page, and whether it can load after the main content.
+
+## Fonts
+
+Fonts can cause invisible text, layout shifts, or extra network requests. Use a small number of font families and weights. Prefer optimized loading through your framework when available, and choose readable fallbacks.
+
+A strong type system matters more than five decorative weights. Your heading font can have personality without dragging the whole site down.
+
+## Hosting and server response
+
+If the server is slow to start responding, the browser cannot paint useful content quickly. Server response can be affected by hosting quality, overloaded plugins, uncached database queries, cold starts, or geographic distance.
+
+Static pages, edge caching, and lean server rendering can help. If the first byte is consistently slow, do not spend all day shaving icons before investigating hosting and backend work.
+
+## Caching
+
+Caching lets browsers and CDNs reuse files instead of downloading or generating them every time. Good caching is especially useful for static assets like CSS, JavaScript, fonts, and images.
+
+Be careful with pages that change often or contain personalized data. The goal is not to cache everything forever; it is to cache the right things predictably.
+
+## Mobile performance
+
+Mobile performance is often worse because devices have less processing power, networks vary, and screens still receive oversized assets. Test mobile layouts directly. Do not assume responsive means fast.
+
+Look for huge hero sections, sticky overlays, heavy animations, hidden desktop assets still loading on mobile, and tap targets that force users to work too hard.
+
+## Which fixes to do first
+
+- Compress and resize above-the-fold images.
+- Remove scripts that do not support a real business or measurement need.
+- Delay nonessential third-party scripts.
+- Improve server response and caching for important templates.
+- Limit font families, weights, and blocking behavior.
+- Retest real pages after each meaningful change.
+
+## What not to obsess over
+
+Do not obsess over a perfect 100 score if the site is already fast for real users and the remaining issues are tiny. Do not break analytics, accessibility, design clarity, or useful content just to satisfy a lab score.
+
+Performance work should make the experience better. A fast confusing page is still a confusing page.
+
+## What to do next
+
+Test three important pages, list the top performance blockers, and fix the largest asset or script problem first. Then read the [performance guides](/performance) and the [website health checklist](/guides/small-business-website-health-checklist) to turn one-time cleanup into a routine.

@@ -1,0 +1,33 @@
+import type { Metadata } from "next";
+
+import { CategoryPage } from "@/components/Editorial";
+import JsonLd from "@/components/JsonLd";
+import { categories, getCategory } from "@/lib/content";
+import { getGuidesByCategory } from "@/lib/mdx";
+import { breadcrumbJsonLd, categoryMetadata, collectionJsonLd, faqJsonLd } from "@/lib/seo";
+
+const category = getCategory("seo")!;
+
+export const metadata: Metadata = categoryMetadata(category);
+
+export default function SeoPage() {
+  return (
+    <>
+      <JsonLd
+        data={[
+          collectionJsonLd(category),
+          breadcrumbJsonLd([
+            { href: "/", label: "Home" },
+            { href: "/seo", label: "SEO" },
+          ]),
+          faqJsonLd(category.questions),
+        ]}
+      />
+      <CategoryPage
+        category={category}
+        articles={getGuidesByCategory("seo")}
+        relatedCategories={category.related.map((slug) => categories.find((item) => item.slug === slug)!).filter(Boolean)}
+      />
+    </>
+  );
+}

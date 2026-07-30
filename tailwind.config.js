@@ -4,8 +4,29 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        display: ["var(--font-syne)", "system-ui", "sans-serif"],
-        sans: ["var(--font-outfit)", "system-ui", "sans-serif"],
+        sans: ["var(--font-inter)", "system-ui", "Segoe UI", "sans-serif"],
+        // Geist Mono primary; JetBrains Mono is the automatic next fallback if Geist is unavailable.
+        mono: [
+          "var(--font-geist-mono)",
+          "var(--font-jetbrains-mono)",
+          "IBM Plex Mono",
+          "JetBrains Mono",
+          "SF Mono",
+          "Menlo",
+          "Consolas",
+          "monospace",
+        ],
+        // Keep font-display as an alias for the mono UI/heading system used across the site.
+        display: [
+          "var(--font-geist-mono)",
+          "var(--font-jetbrains-mono)",
+          "IBM Plex Mono",
+          "JetBrains Mono",
+          "SF Mono",
+          "Menlo",
+          "Consolas",
+          "monospace",
+        ],
       },
       colors: {
         fly: {

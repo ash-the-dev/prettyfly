@@ -1,0 +1,110 @@
+---
+title: "Why Is Google Not Indexing My Website?"
+description: "Learn how to check indexing, diagnose common blockers, and help Google discover the pages that actually matter."
+slug: "why-google-is-not-indexing-my-website"
+published: "2026-07-29"
+updated: "2026-07-29"
+author: "Ash Morales"
+authorSlug: "ash-morales"
+category: "seo"
+readingTime: "12 min read"
+featured: true
+popular: true
+checklist: false
+related:
+  - "why-website-gets-impressions-but-no-clicks"
+  - "small-business-website-health-checklist"
+  - "how-often-should-you-check-your-website"
+sources:
+  - label: "Google indexing documentation"
+    href: "https://developers.google.com/search/docs/crawling-indexing"
+  - label: "Google robots.txt documentation"
+    href: "https://developers.google.com/search/docs/crawling-indexing/robots/intro"
+faqs:
+  - question: "Can I force Google to index a page?"
+    answer: "No. You can request indexing and fix blockers, but Google chooses what to index."
+  - question: "Should every page be indexed?"
+    answer: "No. Thank-you pages, internal search pages, duplicates, drafts, and low-value utility pages often should not be indexed."
+  - question: "Is a sitemap enough for indexing?"
+    answer: "No. A sitemap helps discovery, but pages still need to be crawlable, canonical, indexable, and useful."
+commitCallout:
+  heading: "Need a quick technical SEO pass?"
+  body: "Commit Happens offers a free SEO checker that can help inspect technical SEO problems like indexing blockers, metadata gaps, and crawl issues."
+  href: "https://www.commithappens.com/free-seo-checker"
+  label: "Run the free SEO checker"
+---
+
+Google may not index a website because it has not discovered the page, cannot crawl it, is told not to index it, sees a different canonical URL, finds weak or duplicate content, or has not had enough time to process a new site. The right fix depends on which step is failing.
+
+Do not start by changing every page. Pick one important URL, check whether Google can access it, inspect indexability signals, confirm it appears in your sitemap and internal links, then decide whether the page is worth indexing.
+
+<FlowDiagram steps="Google discovers page | Crawler visits | Indexed | Ranks | Gets impressions | Gets clicks" />
+
+## Discovery versus crawling versus indexing
+
+Discovery means Google knows a URL exists. Crawling means Googlebot requests the page. Indexing means Google chooses to store and potentially show that page in search results. A page can be discovered but not crawled, crawled but not indexed, or indexed and still rank poorly.
+
+This distinction matters because the fixes are different. A discovery problem needs links and sitemaps. A crawl problem may involve robots.txt, server errors, or blocked resources. An indexing problem may involve noindex tags, canonicals, duplicate content, or quality concerns.
+
+## How to check whether a page is indexed
+
+Use Google Search Console's URL Inspection tool for the most useful answer. Paste the exact URL and review whether it is on Google, whether crawling is allowed, what canonical Google selected, and whether the page was submitted in a sitemap.
+
+A `site:` search can be a quick clue, but it is not a complete diagnostic tool. Search Console gives more reliable technical signals for your verified property.
+
+## Noindex tags
+
+A noindex directive tells search engines not to index a page. It can appear as a meta robots tag in the HTML or an X-Robots-Tag header. This is useful for thank-you pages, staging pages, and duplicate utility pages, but disastrous on pages you want found.
+
+Look for accidental noindex rules in templates, SEO plugins, CMS settings, and deployment environments.
+
+## robots.txt
+
+The robots.txt file tells compliant crawlers where they may crawl. Blocking an important directory can stop Googlebot from accessing the page. It does not reliably remove already indexed pages, but it can prevent Google from understanding current content.
+
+Check `/robots.txt` on your domain. Make sure important pages, scripts, and styles are not blocked by broad rules copied from staging or old templates.
+
+## Canonical problems
+
+A canonical tag tells search engines which URL is the preferred version of similar content. If the canonical points somewhere else, Google may index that other page instead. This is common with duplicated product pages, tracking parameters, HTTP/HTTPS mismatches, or www/non-www confusion.
+
+Use one canonical host consistently. Metadata, sitemap URLs, internal links, and redirects should agree.
+
+## Weak internal links
+
+Important pages should not depend only on a sitemap. Internal links tell both visitors and crawlers which pages matter. If a page is orphaned, buried, or linked with vague text like "click here," it is harder to discover and understand.
+
+Add descriptive links from relevant pages. A guide about impressions and clicks should link to an indexing guide when it mentions discovery problems, because that link helps readers and search engines.
+
+## Duplicate or low-value pages
+
+Google does not have to index every URL it finds. Near-duplicate pages, thin tag archives, boilerplate city pages, empty programmatic pages, and pages that do not add a useful answer may be crawled but skipped.
+
+The fix is not to beg harder through the sitemap. Improve the page's usefulness, consolidate duplicates, remove dead weight, and make sure each indexable page has a clear purpose.
+
+## Sitemap problems
+
+A sitemap helps search engines discover URLs, but it does not force indexing. It should include canonical, indexable pages only. Do not include drafts, redirects, 404s, noindex URLs, duplicate parameter pages, or coming-soon shells.
+
+After important changes, resubmit the sitemap in Search Console and check whether submitted URLs are being crawled and indexed over time.
+
+## New-site timing
+
+New sites often take time to be discovered, crawled, and trusted enough for broader indexing. A few days of silence is not proof something is broken. A few weeks with no indexed pages, no crawl activity, and no clear discovery paths deserves investigation.
+
+Use the waiting period well: publish useful pages, link them clearly, verify Search Console, submit a clean sitemap, and avoid changing canonical or URL structures every few days.
+
+## A diagnostic checklist
+
+- Inspect the exact URL in Google Search Console.
+- Confirm the page returns a 200 status and loads without authentication.
+- Check for meta robots noindex and X-Robots-Tag headers.
+- Review robots.txt for broad crawl blocks.
+- Confirm the canonical points to the URL you want indexed.
+- Make sure the page is in the sitemap only if it is canonical and indexable.
+- Add internal links from relevant, crawlable pages.
+- Improve thin or duplicate content before requesting indexing again.
+
+## What to do next
+
+Pick one high-value URL and diagnose it from discovery to indexing. If the page is technically indexable but still skipped, improve its usefulness and internal links before creating more pages. For broader routines, review the [website health checklist](/guides/small-business-website-health-checklist) and the [SEO guides](/seo).

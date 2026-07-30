@@ -1,233 +1,303 @@
-import NavBar from "@/components/NavBar";
-import CursorGlow from "@/components/fly/CursorGlow";
-import HeroFly from "@/components/fly/HeroFly";
-import MarqueeStrip from "@/components/fly/MarqueeStrip";
-import ProcessRail from "@/components/fly/ProcessRail";
-import TiltCard from "@/components/fly/TiltCard";
-import WorkSpotlight from "@/components/fly/WorkSpotlight";
+import type { Metadata } from "next";
+import Link from "next/link";
 
-const services = [
-  {
-    title: "Brand-forward UI",
-    desc: "Art direction, type systems, and interface kits that feel unmistakably yours—not a template in disguise.",
-    chip: "Design",
-  },
-  {
-    title: "Interaction + motion",
-    desc: "Scroll choreography, hover physics, and micro-moments that reward curiosity without slowing the story.",
-    chip: "Motion",
-  },
-  {
-    title: "Next.js engineering",
-    desc: "Fast, accessible builds with clean component boundaries and a launch checklist your future self will love.",
-    chip: "Build",
-  },
-];
+import { ArticleCard, buttonClass, secondaryButtonClass, TopicCard } from "@/components/Editorial";
+import JsonLd from "@/components/JsonLd";
+import NewsletterSignup from "@/components/NewsletterSignup";
+import TrackedLink from "@/components/TrackedLink";
+import { commitHappens } from "@/lib/content";
+import { getAllExperiments, getAllGuides } from "@/lib/mdx";
+import { pageMetadata, websiteJsonLd } from "@/lib/seo";
 
-const stats = [
-  { label: "Avg. lift in perceived polish", value: "∞", hint: "unscientific but true" },
-  { label: "Handoffs without chaos", value: "100%", hint: "docs, tokens, and sanity" },
-  { label: "Meetings that could’ve been emails", value: "0", hint: "we respect the calendar" },
+export const metadata: Metadata = pageMetadata({
+  title: "Pretty Fly for a Website",
+  description: "Make your website faster, healthier, and easier to find with practical SEO, performance, analytics, accessibility, and website-health guides.",
+  path: "/",
+});
+
+const topicCards = [
+  {
+    label: "SEO",
+    title: "Get found in search",
+    description: "Learn how indexing, search intent, page structure, internal links, metadata, and technical SEO work together.",
+    href: "/seo",
+  },
+  {
+    label: "Performance",
+    title: "Make your site faster",
+    description: "Understand Core Web Vitals, image optimization, scripts, caching, fonts, and the things making visitors wait.",
+    href: "/performance",
+  },
+  {
+    label: "Website Health",
+    title: "Catch quiet website problems",
+    description: "Find broken links, missing pages, uptime issues, redirect problems, SSL errors, and technical warning signs.",
+    href: "/website-health",
+  },
+  {
+    label: "Analytics",
+    title: "Understand what visitors do",
+    description: "Learn which numbers matter, what your traffic is telling you, and where people abandon the journey.",
+    href: "/analytics",
+  },
+  {
+    label: "Accessibility",
+    title: "Build for more people",
+    description: "Improve readability, navigation, forms, contrast, keyboard access, and the overall experience for every visitor.",
+    href: "/accessibility",
+  },
+  {
+    label: "Growth",
+    title: "Turn attention into action",
+    description: "Improve landing pages, calls to action, trust signals, content strategy, and conversion paths without sounding desperate.",
+    href: "/growth",
+  },
 ];
 
 export default function Home() {
+  const guides = getAllGuides();
+  const featured = guides.filter((article) => article.featured).slice(0, 6);
+  const latestGuides = guides.slice(0, 4);
+  const popularGuides = guides.filter((guide) => guide.popular).slice(0, 4);
+  const recentlyUpdated = [...guides].sort((a, b) => b.updated.localeCompare(a.updated)).slice(0, 4);
+  const featuredChecklist = guides.find((guide) => guide.checklist);
+  const experiments = getAllExperiments().slice(0, 4);
+
   return (
-    <main className="relative min-h-full overflow-x-hidden">
-      <CursorGlow />
-      <NavBar />
-      <HeroFly />
-      <MarqueeStrip />
-
-      {/* STATS */}
-      <section className="container-max py-14 md:py-20">
-        <div className="grid gap-4 md:grid-cols-3">
-          {stats.map((s) => (
-            <div
-              key={s.label}
-              className="group rounded-2xl border border-fly-line bg-fly-panel/50 p-6 transition hover:-translate-y-1 hover:border-[rgb(var(--accent-rgb)/0.35)] hover:shadow-glow"
-            >
-              <div className="font-display text-4xl font-black text-fly-cream md:text-5xl">{s.value}</div>
-              <div className="mt-2 text-sm font-semibold text-fly-cream">{s.label}</div>
-              <div className="mt-2 text-xs uppercase tracking-widest text-fly-muted">{s.hint}</div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* SERVICES */}
-      <section id="services" className="container-max py-16 md:py-24">
-        <div className="max-w-2xl">
-          <p className="text-xs font-bold uppercase tracking-[0.3em] text-[rgb(var(--accent-rgb))]">Capabilities</p>
-          <h2 className="mt-3 font-display text-3xl font-bold text-fly-cream md:text-5xl">We make the internet less boring.</h2>
-          <p className="mt-4 text-lg text-fly-muted">
-            Three lanes, infinite combinations—pick a sprint or let us orchestrate the whole runway.
-          </p>
-        </div>
-
-        <div className="mt-12 grid gap-5 md:grid-cols-3">
-          {services.map((s) => (
-            <TiltCard key={s.title} className="h-full">
-              <div className="flex h-full flex-col rounded-[1.75rem] border border-fly-line bg-gradient-to-b from-fly-panel to-fly-ink/90 p-6 shadow-card transition hover:border-[rgb(var(--accent-rgb)/0.35)]">
-                <span className="inline-flex w-max rounded-full border border-fly-line px-3 py-1 text-[11px] font-bold uppercase tracking-widest text-fly-muted">
-                  {s.chip}
-                </span>
-                <h3 className="mt-5 font-display text-xl font-bold text-fly-cream">{s.title}</h3>
-                <p className="mt-3 flex-1 text-sm leading-relaxed text-fly-muted">{s.desc}</p>
-                <div className="mt-6 flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-fly-cream">
-                  <span className="h-px flex-1 bg-gradient-to-r from-[rgb(var(--accent-rgb))] to-transparent" />
-                  Dive in
-                </div>
-              </div>
-            </TiltCard>
-          ))}
-        </div>
-      </section>
-
-      {/* WORK */}
-      <section id="work" className="container-max py-16 md:py-24">
-        <div className="flex flex-wrap items-end justify-between gap-6">
-          <div className="max-w-xl">
-            <p className="text-xs font-bold uppercase tracking-[0.3em] text-[rgb(var(--accent2-rgb))]">Selected energy</p>
-            <h2 className="mt-3 font-display text-3xl font-bold text-fly-cream md:text-5xl">Work that moves pixels and people.</h2>
-            <p className="mt-4 text-fly-muted">
-              Tap the hero card to cycle concepts—each one is a sandbox for how we think about rhythm, contrast, and story.
-            </p>
-          </div>
-          <a
-            href="#contact"
-            className="inline-flex items-center gap-2 rounded-full border border-fly-line bg-fly-panel/70 px-5 py-3 text-xs font-bold uppercase tracking-widest text-fly-cream transition hover:border-[rgb(var(--accent-rgb)/0.45)]"
-          >
-            Pitch your project
-            <span aria-hidden="true">↗</span>
-          </a>
-        </div>
-
-        <div className="mt-12">
-          <WorkSpotlight />
-        </div>
-      </section>
-
-      {/* PROCESS */}
-      <section id="process" className="container-max py-16 md:py-24">
-        <div className="grid gap-12 lg:grid-cols-12 lg:items-start">
-          <div className="lg:col-span-5 lg:sticky lg:top-28">
-            <p className="text-xs font-bold uppercase tracking-[0.3em] text-fly-muted">Flight plan</p>
-            <h2 className="mt-3 font-display text-3xl font-bold text-fly-cream md:text-5xl">Transparent, theatrical, on time.</h2>
-            <p className="mt-4 text-fly-muted">
-              No black-box agency mystery—just a crew that prototypes loudly, documents generously, and ships like we mean it.
-            </p>
-            <div className="mt-8 hidden rounded-3xl border border-fly-line bg-fly-panel/60 p-6 lg:block">
-              <p className="font-display text-lg font-bold text-fly-cream">“Make it pretty fly.”</p>
-              <p className="mt-2 text-sm text-fly-muted">— Someone cool, probably you after launch</p>
-            </div>
-          </div>
-          <div className="lg:col-span-7">
-            <ProcessRail />
-          </div>
-        </div>
-      </section>
-
-      {/* CONTACT */}
-      <section id="contact" className="container-max pb-8 pt-8 md:pb-16 md:pt-12">
-        <div className="relative overflow-hidden rounded-[2rem] border border-fly-line bg-gradient-to-br from-fly-panel via-fly-ink to-fly-void p-8 shadow-card md:p-12">
-          <div
-            className="pointer-events-none absolute -right-20 -top-24 h-72 w-72 rounded-full blur-3xl opacity-50"
-            style={{ background: "rgb(var(--accent2-rgb) / 0.25)" }}
-          />
-          <div
-            className="pointer-events-none absolute -bottom-16 -left-16 h-64 w-64 rounded-full blur-3xl opacity-40"
-            style={{ background: "rgb(var(--accent-rgb) / 0.2)" }}
-          />
-
-          <div className="relative grid gap-10 lg:grid-cols-2 lg:items-center">
-            <div>
-              <p className="text-xs font-bold uppercase tracking-[0.3em] text-[rgb(var(--accent-rgb))]">Contact</p>
-              <h2 className="mt-3 font-display text-3xl font-bold text-fly-cream md:text-4xl">Tell us what you’re dreaming in HTML.</h2>
-              <p className="mt-4 text-fly-muted">
-                Drop the messy notes—we love messy notes. Expect a thoughtful reply within two business days with next steps
-                and a ballpark.
-              </p>
-              <ul className="mt-8 space-y-3 text-sm text-fly-muted">
-                <li className="flex items-center gap-2">
-                  <span className="h-1.5 w-1.5 rounded-full bg-[rgb(var(--accent-rgb))]" />
-                  Remote-first studio, timezone friendly
-                </li>
-                <li className="flex items-center gap-2">
-                  <span className="h-1.5 w-1.5 rounded-full bg-[rgb(var(--accent2-rgb))]" />
-                  Workshops available for teams who like sticky notes
-                </li>
-              </ul>
-            </div>
-
-            <form className="grid gap-4">
-              <div className="grid gap-4 sm:grid-cols-2">
-                <label className="grid gap-2 text-xs font-bold uppercase tracking-widest text-fly-muted">
-                  Name
-                  <input
-                    name="name"
-                    className="rounded-2xl border border-fly-line bg-fly-void/60 px-4 py-3 text-sm font-medium text-fly-cream outline-none transition placeholder:text-fly-muted/50 focus:border-[rgb(var(--accent-rgb)/0.55)] focus:ring-2 focus:ring-[rgb(var(--accent-rgb)/0.2)]"
-                    placeholder="Jordan Lee"
-                  />
-                </label>
-                <label className="grid gap-2 text-xs font-bold uppercase tracking-widest text-fly-muted">
-                  Email
-                  <input
-                    name="email"
-                    type="email"
-                    className="rounded-2xl border border-fly-line bg-fly-void/60 px-4 py-3 text-sm font-medium text-fly-cream outline-none transition placeholder:text-fly-muted/50 focus:border-[rgb(var(--accent-rgb)/0.55)] focus:ring-2 focus:ring-[rgb(var(--accent-rgb)/0.2)]"
-                    placeholder="you@studio.co"
-                  />
-                </label>
-              </div>
-              <label className="grid gap-2 text-xs font-bold uppercase tracking-widest text-fly-muted">
-                Project / brand
-                <input
-                  name="project"
-                  className="rounded-2xl border border-fly-line bg-fly-void/60 px-4 py-3 text-sm font-medium text-fly-cream outline-none transition placeholder:text-fly-muted/50 focus:border-[rgb(var(--accent-rgb)/0.55)] focus:ring-2 focus:ring-[rgb(var(--accent-rgb)/0.2)]"
-                  placeholder="New marketing site, rebrand, product UI..."
-                />
-              </label>
-              <label className="grid gap-2 text-xs font-bold uppercase tracking-widest text-fly-muted">
-                The dream brief
-                <textarea
-                  name="message"
-                  rows={4}
-                  className="resize-none rounded-2xl border border-fly-line bg-fly-void/60 px-4 py-3 text-sm font-medium text-fly-cream outline-none transition placeholder:text-fly-muted/50 focus:border-[rgb(var(--accent-rgb)/0.55)] focus:ring-2 focus:ring-[rgb(var(--accent-rgb)/0.2)]"
-                  placeholder="Links, references, deadlines, budget ballparks—everything helps."
-                />
-              </label>
-              <button
-                type="button"
-                className="group relative mt-2 inline-flex w-full items-center justify-center overflow-hidden rounded-2xl px-6 py-4 text-sm font-black uppercase tracking-[0.2em] text-fly-void transition hover:scale-[1.01] active:scale-[0.99] sm:w-auto"
-                style={{ background: "rgb(var(--accent-rgb))", boxShadow: "0 0 50px -12px rgb(var(--accent-rgb) / 0.55)" }}
-              >
-                <span className="absolute inset-0 translate-y-full bg-white/20 transition group-hover:translate-y-0" />
-                <span className="relative">Send it skyward</span>
-              </button>
-              <p className="text-xs text-fly-muted">
-                Form is front-end only for now—wire it to Formspree, Resend, or a route when you are ready to catch real leads.
-              </p>
-            </form>
-          </div>
-        </div>
-
-        <footer className="mt-12 flex flex-col items-start justify-between gap-6 border-t border-fly-line pt-10 text-sm text-fly-muted md:flex-row md:items-center">
+    <main className="overflow-hidden bg-[#070707]">
+      <JsonLd data={websiteJsonLd()} />
+      <section className="bg-[#070707] text-white">
+        <div className="container-max grid gap-12 py-16 md:py-24 lg:grid-cols-[1fr_460px] lg:items-center">
           <div>
-            <div className="font-display text-base font-bold text-fly-cream">Pretty Fly for a Website</div>
-            <div className="mt-1">© {new Date().getFullYear()} All rights reserved. Built with Next.js.</div>
+            <p className="eyebrow text-[#F45BCF]">The Myth Busters of SEO, performance, and website health.</p>
+            <h1 className="mt-5 max-w-4xl heading-type text-5xl md:text-7xl">
+              Make your website pretty fly.
+            </h1>
+            <p className="mt-6 max-w-2xl text-lg leading-8 text-white/75 md:text-xl">
+              Challenge lazy assumptions, verify what is actually happening, and fix the problems that quietly cost you visitors.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-4">
+              <a href="#featured-guides" className={buttonClass}>Learn Something Useful</a>
+              <TrackedLink
+                href={commitHappens.healthChecker}
+                eventName="website_health_checker_click"
+                eventLabel="Homepage hero secondary"
+                className={secondaryButtonClass}
+              >
+                Fix Your Website
+              </TrackedLink>
+            </div>
+            <p className="mt-5 max-w-xl text-sm leading-6 text-white/60">
+              Practical guides, real experiments, original diagrams, and plain-English fixes for websites that deserve better.
+            </p>
           </div>
-          <div className="flex flex-wrap gap-6 text-xs font-bold uppercase tracking-widest">
-            <a href="#services" className="transition hover:text-[rgb(var(--accent-rgb))]">
-              Services
-            </a>
-            <a href="#work" className="transition hover:text-[rgb(var(--accent-rgb))]">
-              Work
-            </a>
-            <a href="#contact" className="transition hover:text-[rgb(var(--accent-rgb))]">
-              Contact
-            </a>
+          <div className="rounded-3xl border-2 border-black bg-white p-5 text-black shadow-[10px_10px_0_#000]">
+            <div className="flex items-center justify-between border-b-2 border-black pb-4">
+              <div>
+                <p className="eyebrow text-[#A51C83]">Website health snapshot</p>
+                <h2 className="heading-type text-2xl">Needs attention</h2>
+              </div>
+              <span className="rounded-[10px] border-2 border-black bg-cyan-300 px-3 py-1 text-xs font-bold">Live-ish</span>
+            </div>
+            <div className="mt-5 grid gap-4">
+              {[
+                ["SEO score", "74", "Titles need work"],
+                ["Uptime", "99.9%", "Looks calm"],
+                ["Performance", "Needs work", "Large hero image"],
+                ["Broken links", "3", "Check redirects"],
+                ["Search impressions", "Rising", "Clicks lagging"],
+              ].map(([label, value, note]) => (
+                <div key={label} className="grid grid-cols-[1fr_auto] gap-4 rounded-2xl border-2 border-black bg-neutral-100 p-4">
+                  <div>
+                    <p className="font-mono text-sm font-bold">{label}</p>
+                    <p className="mt-1 font-sans text-sm text-neutral-600">{note}</p>
+                  </div>
+                  <div className="metric-type text-2xl text-[#A51C83]">{value}</div>
+                </div>
+              ))}
+            </div>
           </div>
-        </footer>
+        </div>
+      </section>
+
+      <section className="bg-neutral-100 text-black">
+        <div className="container-max py-16 md:py-24">
+          <div className="max-w-2xl">
+            <h2 className="heading-type text-4xl">What does your website need help with?</h2>
+            <p className="mt-4 text-lg leading-8 text-neutral-700">
+              Pick the problem that sounds most familiar. We will skip the jargon and show you where to start.
+            </p>
+          </div>
+          <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+            {topicCards.map((card) => (
+              <TopicCard key={card.href} {...card} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-white text-black">
+        <div className="container-max py-16 md:py-24">
+          <div className="max-w-3xl">
+            <p className="eyebrow text-[#A51C83]">Editorial promise</p>
+            <h2 className="mt-3 heading-type text-4xl">Not another pile of SEO articles.</h2>
+            <p className="mt-4 text-lg leading-8 text-neutral-700">
+              Pretty Fly for a Website is built to challenge assumptions with evidence: why a position of 39 is not automatically bad, why impressions with zero clicks can be useful, and why tools never guarantee rankings.
+            </p>
+            <div className="mt-6 flex flex-wrap gap-4">
+              <Link href="/guides" className={buttonClass}>Explore the Guides</Link>
+              <Link href="/tools" className={secondaryButtonClass}>Browse free tools</Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="featured-guides" className="bg-neutral-100 text-black">
+        <div className="container-max py-16 md:py-24">
+          <div className="max-w-2xl">
+            <h2 className="heading-type text-4xl">Featured field guides</h2>
+            <p className="mt-4 text-lg leading-8 text-neutral-700">
+              No 9,000-word detours before answering the question. Just useful explanations and practical steps.
+            </p>
+          </div>
+          <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+            {featured.map((article) => (
+              <ArticleCard key={article.slug} article={article} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-neutral-100 text-black">
+        <div className="container-max grid gap-8 py-16 md:py-24 lg:grid-cols-[1.1fr_0.9fr]">
+          <div>
+            <p className="eyebrow text-[#A51C83]">Latest guides</p>
+            <h2 className="mt-3 heading-type text-4xl">Fresh field notes for healthier websites.</h2>
+            <div className="mt-8 grid gap-4">
+              {latestGuides.map((guide) => (
+                <ArticleCard key={guide.slug} article={guide} compact />
+              ))}
+            </div>
+          </div>
+          <div className="grid gap-8">
+            <div>
+              <p className="eyebrow text-[#A51C83]">Popular guides</p>
+              <div className="mt-4 grid gap-3">
+                {popularGuides.map((guide) => (
+                  <a key={guide.slug} href={`/guides/${guide.slug}`} className="block rounded-xl border-2 border-black bg-white p-4 font-mono font-bold shadow-[4px_4px_0_#000] hover:-translate-y-0.5">
+                    {guide.title}
+                  </a>
+                ))}
+              </div>
+            </div>
+            <div>
+              <p className="eyebrow text-[#A51C83]">Recently updated</p>
+              <div className="mt-4 grid gap-3">
+                {recentlyUpdated.map((guide) => (
+                  <a key={guide.slug} href={`/guides/${guide.slug}`} className="block rounded-xl border-2 border-black bg-white p-4 font-mono font-bold shadow-[4px_4px_0_#000] hover:-translate-y-0.5">
+                    {guide.title}
+                  </a>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-[#091B36] text-white">
+        <div className="container-max grid gap-10 py-16 md:py-24 lg:grid-cols-[1fr_1fr] lg:items-center">
+          <div>
+            <h2 className="heading-type text-4xl">Your website probably will not dramatically explode.</h2>
+            <p className="mt-5 text-lg leading-8 text-white/75">
+              It may quietly slow down, lose rankings, break a form, stop recording conversions, or send visitors to a missing page. Those smaller failures are often the expensive ones.
+            </p>
+            <a href="/website-health" className={`${buttonClass} mt-8`}>Learn about website health</a>
+          </div>
+          <div className="grid gap-4 sm:grid-cols-2">
+            {["Search visibility slips", "Important pages slow down", "Forms stop working", "Links and redirects break"].map((item) => (
+              <div key={item} className="rounded-2xl border-2 border-black bg-white p-5 heading-type text-2xl text-black shadow-[6px_6px_0_#000]">
+                {item}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-neutral-100 text-black">
+        <div className="container-max py-16 md:py-24">
+          <div className="max-w-2xl">
+            <h2 className="heading-type text-4xl">Newest experiments, with receipts</h2>
+            <p className="mt-4 text-lg leading-8 text-neutral-700">
+              We test assumptions, track what changes, and publish what actually happened.
+            </p>
+          </div>
+          <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+            {experiments.map((experiment) => (
+              <article key={experiment.slug} className="rounded-2xl border-2 border-black bg-white p-6 shadow-[6px_6px_0_#000]">
+                <p className="eyebrow text-[#A51C83]">{experiment.status}</p>
+                <h3 className="mt-4 heading-type text-2xl">{experiment.title}</h3>
+                <p className="mt-4 text-sm leading-6 text-neutral-600">
+                  {experiment.description}
+                </p>
+                <a href={`/experiments/${experiment.slug}`} className="mt-5 inline-block font-bold text-[#A51C83] underline-offset-4 hover:underline">
+                  Follow the experiment
+                </a>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {featuredChecklist ? (
+        <section className="bg-white text-black">
+          <div className="container-max py-16 md:py-24">
+            <div className="grid gap-8 rounded-3xl border-2 border-black bg-cyan-300 p-8 shadow-[10px_10px_0_#000] lg:grid-cols-[1fr_0.8fr] lg:items-center">
+              <div>
+                <p className="eyebrow">Featured checklist</p>
+                <h2 className="mt-3 heading-type text-4xl">{featuredChecklist.title}</h2>
+                <p className="mt-4 text-lg leading-8">{featuredChecklist.description}</p>
+              </div>
+              <a href={`/guides/${featuredChecklist.slug}`} className={buttonClass}>Open the checklist</a>
+            </div>
+          </div>
+        </section>
+      ) : null}
+
+      <section className="bg-white text-black">
+        <div className="container-max py-16 md:py-24">
+          <div className="rounded-3xl border-2 border-black bg-[#091B36] p-8 text-white shadow-[10px_10px_0_#000] md:p-12">
+            <p className="eyebrow text-cyan-300">Tool recommendation</p>
+            <h2 className="mt-4 max-w-3xl heading-type text-4xl">Would you rather check the website than memorize the checklist?</h2>
+            <p className="mt-5 max-w-3xl text-lg leading-8 text-white/80">
+              Commit Happens monitors website health, SEO, performance, uptime, analytics, and technical issues in one place. It translates the findings into language normal humans can use.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-4">
+              <TrackedLink href={commitHappens.healthChecker} eventName="website_health_checker_click" eventLabel="Homepage callout primary" className={buttonClass}>
+                Check your website
+              </TrackedLink>
+              <TrackedLink href={commitHappens.monitoring} eventName="commit_happens_outbound_click" eventLabel="Homepage callout secondary" className={secondaryButtonClass}>
+                See how Commit Happens works
+              </TrackedLink>
+            </div>
+            <p className="mt-6 rounded-xl border border-white/25 bg-white/10 p-4 text-sm leading-6 text-white/80">
+              Pretty Fly for a Website and Commit Happens are related projects. We recommend it where it genuinely fits the problem being discussed.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-neutral-100 text-black">
+        <div className="container-max py-16 md:py-24">
+          <div className="grid gap-8 rounded-3xl border-2 border-black bg-white p-8 shadow-[10px_10px_0_#000] md:grid-cols-[1fr_420px] md:p-12">
+            <div>
+              <h2 className="heading-type text-4xl">One useful website lesson at a time.</h2>
+              <p className="mt-4 text-lg leading-8 text-neutral-700">
+                Get practical SEO, performance, and website-health advice without a daily avalanche of marketing fluff.
+              </p>
+            </div>
+            <NewsletterSignup />
+          </div>
+        </div>
       </section>
     </main>
   );

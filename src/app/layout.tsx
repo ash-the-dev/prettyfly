@@ -1,43 +1,50 @@
 import "./globals.css";
 import type { Metadata } from "next";
-import { Outfit, Syne } from "next/font/google";
+import { Inter, JetBrains_Mono } from "next/font/google";
+import { GeistMono } from "geist/font/mono";
 import Script from "next/script";
 
+import JsonLd from "@/components/JsonLd";
+import NavBar from "@/components/NavBar";
+import SiteFooter from "@/components/SiteFooter";
 import { siteName, siteUrl } from "@/config/site";
+import { organizationJsonLd } from "@/lib/seo";
 
-const fontSans = Outfit({
+const fontSans = Inter({
   subsets: ["latin"],
-  variable: "--font-outfit",
+  variable: "--font-inter",
   display: "swap",
 });
 
-const fontDisplay = Syne({
+const fontMonoFallback = JetBrains_Mono({
   subsets: ["latin"],
-  variable: "--font-syne",
+  variable: "--font-jetbrains-mono",
   display: "swap",
 });
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: `${siteName} | Website design studio`,
+    default: `${siteName} | Make your website faster, healthier, and easier to find`,
     template: `%s | ${siteName}`,
   },
   description:
-    "A boutique website design studio. Bold interfaces, crisp motion, and builds that feel alive—from first sketch to launch.",
+    "Plain-English guides for SEO, website performance, website health, analytics, accessibility, uptime, and website growth.",
   alternates: { canonical: siteUrl },
   openGraph: {
     type: "website",
     url: siteUrl,
-    title: `${siteName} | Website design studio`,
+    title: `${siteName} | Make your website faster, healthier, and easier to find`,
     description:
-      "We design and build unforgettable sites: strategy, art direction, interaction design, and fast modern engineering.",
+      "Plain-English guides for SEO, website performance, website health, analytics, accessibility, uptime, and website growth.",
     siteName,
+    images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: `${siteName} social sharing image` }],
   },
   twitter: {
     card: "summary_large_image",
-    title: `${siteName} | Website design studio`,
-    description: "Bold web design and development. Your brand, elevated and in motion.",
+    title: `${siteName} | Make your website faster, healthier, and easier to find`,
+    description: "Plain-English guides for healthier, faster, easier-to-find websites.",
+    images: ["/opengraph-image"],
   },
   robots: {
     index: true,
@@ -53,29 +60,25 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "ProfessionalService",
-    name: siteName,
-    url: siteUrl,
-    description:
-      "Website design and creative development studio specializing in distinctive brand-led interfaces and performant launches.",
-    areaServed: "Worldwide",
-  };
-
   return (
-    <html lang="en" data-fly-palette="lime" className={`${fontSans.variable} ${fontDisplay.variable}`}>
-      <body className="min-h-full">
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
+    <html
+      lang="en"
+      data-fly-palette="magenta"
+      className={`${fontSans.variable} ${GeistMono.variable} ${fontMonoFallback.variable}`}
+    >
+      <body className="min-h-full font-sans antialiased">
+        <JsonLd data={organizationJsonLd()} />
         <Script
           src="https://www.commithappens.com/tracker/wip.js"
           strategy="afterInteractive"
           data-site-key="eaba557f-dad4-4cd6-bd48-f004f7f807d4"
         />
-        {children}
+        <a href="#main-content" className="skip-link">
+          Skip to content
+        </a>
+        <NavBar />
+        <div id="main-content">{children}</div>
+        <SiteFooter />
       </body>
     </html>
   );

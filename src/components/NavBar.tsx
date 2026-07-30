@@ -1,18 +1,17 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
-const nav = [
-  { href: "#services", label: "Services" },
-  { href: "#work", label: "Work" },
-  { href: "#process", label: "Process" },
-  { href: "#contact", label: "Contact" },
-];
+import TrackedLink from "@/components/TrackedLink";
+import { buttonClass } from "@/components/Editorial";
+import { commitHappens, moreLinks, navLinks } from "@/lib/content";
 
 export default function NavBar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -28,53 +27,100 @@ export default function NavBar() {
     };
   }, [open]);
 
+  useEffect(() => {
+    if (!open) return;
+
+    const focusable = menuRef.current?.querySelectorAll<HTMLElement>(
+      'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])',
+    );
+    focusable?.[0]?.focus();
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setOpen(false);
+        buttonRef.current?.focus();
+      }
+
+      if (event.key !== "Tab" || !focusable?.length) return;
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [open]);
+
   return (
     <header
       className={[
         "sticky top-0 z-[80] transition-all duration-300",
-        scrolled ? "border-b border-fly-line bg-fly-void/80 backdrop-blur-xl" : "border-b border-transparent bg-transparent",
+        scrolled ? "border-b-2 border-black bg-white text-black shadow-[0_8px_0_rgba(0,0,0,0.08)]" : "border-b-2 border-transparent bg-[#070707] text-white",
       ].join(" ")}
     >
       <div className="container-max relative z-[90] flex items-center justify-between gap-4 py-4">
-        <Link href="/" className="group flex items-center gap-3" onClick={() => setOpen(false)}>
+        <Link href="/" className="group flex min-h-11 items-center gap-3 font-mono" onClick={() => setOpen(false)}>
           <span
-            className="grid h-10 w-10 place-items-center rounded-2xl border border-fly-line bg-fly-panel/80 text-sm font-black font-display transition group-hover:border-[rgb(var(--accent-rgb)/0.45)] group-hover:shadow-glow"
-            style={{ color: "rgb(var(--accent-rgb))" }}
+            className="grid h-10 w-10 place-items-center rounded-[10px] border-2 border-black bg-[#F45BCF] text-sm font-bold text-black transition group-hover:-rotate-3"
           >
             PF
           </span>
           <span className="hidden min-[420px]:block">
-            <span className="block font-display text-sm font-bold leading-tight text-fly-cream">Pretty Fly</span>
-            <span className="block text-[11px] font-semibold uppercase tracking-[0.28em] text-fly-muted">
-              for a Website
-            </span>
+            <span className="block text-sm font-bold leading-tight tracking-[0.02em]">Pretty Fly</span>
+            <span className="block text-[11px] font-bold uppercase tracking-[0.18em] opacity-70">for a Website</span>
           </span>
         </Link>
 
-        <nav className="hidden items-center gap-8 md:flex">
-          {nav.map((item) => (
-            <a
+        <nav className="hidden items-center gap-6 font-mono lg:flex" aria-label="Main navigation">
+          {navLinks.map((item) => (
+            <Link
               key={item.href}
               href={item.href}
-              className="group relative text-sm font-semibold text-fly-muted transition hover:text-fly-cream"
+              className="min-h-11 py-3 text-sm font-bold underline-offset-4 opacity-75 transition hover:opacity-100 hover:underline focus:outline-none focus:ring-4 focus:ring-[#F45BCF]"
             >
               {item.label}
-              <span className="absolute -bottom-1 left-0 h-px w-full origin-left scale-x-0 bg-[rgb(var(--accent-rgb))] transition group-hover:scale-x-100" />
-            </a>
+            </Link>
           ))}
+          <div className="group relative">
+            <button
+              type="button"
+              className="min-h-11 py-3 text-sm font-bold opacity-75 transition hover:opacity-100 focus:outline-none focus:ring-4 focus:ring-[#F45BCF]"
+            >
+              More
+            </button>
+            <div className="invisible absolute right-0 top-full w-56 translate-y-2 border-2 border-black bg-white p-3 font-mono text-black opacity-0 shadow-[6px_6px_0_#000] transition group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100">
+              {moreLinks.map((item) => (
+                <Link key={item.href} href={item.href} className="block rounded-md px-3 py-3 text-sm font-bold hover:bg-neutral-100 focus:outline-none focus:ring-4 focus:ring-cyan-300">
+                  {item.label}
+                </Link>
+              ))}
+            </div>
+          </div>
         </nav>
 
         <div className="flex items-center gap-3">
-          <a
-            href="#contact"
-            className="hidden rounded-full border border-fly-line bg-fly-panel/70 px-4 py-2 text-xs font-bold uppercase tracking-widest text-fly-cream backdrop-blur-md transition hover:border-[rgb(var(--accent-rgb)/0.45)] sm:inline-flex"
+          <TrackedLink
+            href={commitHappens.healthChecker}
+            eventName="website_health_checker_click"
+            eventLabel="Header CTA"
+            className={`${buttonClass} hidden py-2 text-xs sm:inline-flex`}
           >
-            Start
-          </a>
+            Check Your Website
+          </TrackedLink>
           <button
+            ref={buttonRef}
             type="button"
-            className="inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-fly-line bg-fly-panel/80 text-fly-cream md:hidden"
+            className="inline-flex h-12 w-12 items-center justify-center rounded-[10px] border-2 border-black bg-white text-black shadow-[4px_4px_0_#000] lg:hidden"
             aria-expanded={open}
+            aria-controls="mobile-navigation"
             aria-label={open ? "Close menu" : "Open menu"}
             onClick={() => setOpen((v) => !v)}
           >
@@ -94,31 +140,37 @@ export default function NavBar() {
       </div>
 
       <div
-        className={`fixed inset-0 z-[70] bg-fly-void/95 backdrop-blur-md transition-opacity md:hidden ${
+        id="mobile-navigation"
+        ref={menuRef}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Mobile navigation"
+        className={`fixed inset-0 z-[70] bg-[#070707] px-0 text-white transition-opacity lg:hidden ${
           open ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"
         }`}
         aria-hidden={!open}
       >
-        <nav className="container-max flex min-h-[calc(100dvh-5rem)] flex-col justify-center gap-8 pb-24 pt-8">
-          {nav.map((item, i) => (
-            <a
+        <nav className="container-max flex min-h-dvh flex-col justify-center gap-4 pb-24 pt-24 font-mono" aria-label="Mobile navigation">
+          {[...navLinks, ...moreLinks].map((item, i) => (
+            <Link
               key={item.href}
               href={item.href}
               onClick={() => setOpen(false)}
-              className="font-display text-4xl font-bold text-fly-cream transition hover:text-[rgb(var(--accent-rgb))]"
+              className="heading-type min-h-12 text-3xl transition hover:text-[#F45BCF] focus:outline-none focus:ring-4 focus:ring-[#F45BCF]"
               style={{ transitionDelay: open ? `${i * 40}ms` : "0ms" }}
             >
               {item.label}
-            </a>
+            </Link>
           ))}
-          <a
-            href="#contact"
+          <TrackedLink
+            href={commitHappens.healthChecker}
+            eventName="website_health_checker_click"
+            eventLabel="Mobile nav CTA"
             onClick={() => setOpen(false)}
-            className="mt-4 inline-flex w-max items-center rounded-full px-8 py-4 text-sm font-bold uppercase tracking-widest text-fly-void"
-            style={{ background: "rgb(var(--accent-rgb))" }}
+            className={`${buttonClass} mt-4 w-max`}
           >
-            Book a call
-          </a>
+            Check Your Website
+          </TrackedLink>
         </nav>
       </div>
     </header>

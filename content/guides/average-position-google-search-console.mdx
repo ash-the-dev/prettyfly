@@ -1,0 +1,99 @@
+---
+title: "What Is Average Position in Google Search Console?"
+description: "Understand what average position measures, why it jumps around, and what it does not tell you about your rankings."
+slug: "average-position-google-search-console"
+published: "2026-07-29"
+updated: "2026-07-29"
+author: "Ash Morales"
+authorSlug: "ash-morales"
+category: "analytics"
+readingTime: "9 min read"
+featured: true
+popular: true
+checklist: false
+related:
+  - "why-website-gets-impressions-but-no-clicks"
+  - "why-google-is-not-indexing-my-website"
+  - "how-often-should-you-check-your-website"
+sources:
+  - label: "Google Search Console performance metrics"
+    href: "https://support.google.com/webmasters/answer/7042828"
+  - label: "Google Search Console performance report"
+    href: "https://support.google.com/webmasters/answer/7576553"
+faqs:
+  - question: "Is average position my exact ranking?"
+    answer: "No. It is an average across impressions and filtered views, not one fixed ranking."
+  - question: "Why did average position get worse while impressions improved?"
+    answer: "Your page may have started appearing for more low-position queries, which expands visibility while lowering the average."
+  - question: "Should I track position every day?"
+    answer: "Daily checks can be noisy. Use trends and query-level context instead of reacting to every movement."
+---
+
+Average position is an average, not a grade. A position of 39 for a new page can mean discovery is working. It does not automatically mean the page failed.
+
+Average position in Google Search Console is the average topmost position of your site for a query, page, country, device, or other filtered view. It is not a single fixed ranking. It changes because searches, locations, devices, result features, and the pages shown can all vary.
+
+Use average position with impressions, clicks, click-through rate, query relevance, and page intent. Position alone can mislead you.
+
+<FlowDiagram steps="Impression 1 at position 8 | Impression 2 at position 14 | Impression 3 at position 39 | Search Console averages them | You inspect the query context" />
+
+## Definition of average position
+
+In Search Console, position refers to where a result from your property appears in the search results. Average position combines many impressions into one number. If your page appears once at position 3 and once at position 9, the average for those impressions is 6.
+
+This is helpful for trend analysis, but it is not the same thing as personally searching Google and seeing one ranking on your laptop.
+
+## Why it is an average
+
+Search results are not identical for everyone. Google may show different results by location, device, language, personalization, freshness, and query interpretation. Search Console rolls those appearances into aggregate metrics.
+
+That is why a page can have an average position of 14.6. Nobody literally ranks at position 14.6. It is a summary of many result appearances.
+
+## Why the number changes
+
+Average position can change because your rankings changed, but it can also change because the mix of queries changed. If a page starts appearing for many new long-tail searches in low positions, the average may look worse even though visibility expanded.
+
+This is why new sites sometimes see strange-looking position data. More impressions across more queries can pull the average down before meaningful clicks arrive.
+
+## Query-level versus page-level position
+
+Query-level position tells you how your site performs for a specific search. Page-level position blends every query that showed that page. The page-level number can hide the fact that one article ranks well for a few focused searches and poorly for many barely related ones.
+
+When diagnosing a page, filter by the page first, then inspect queries. When diagnosing a keyword, filter by the query first, then inspect pages.
+
+## Device and country differences
+
+A page can rank differently on mobile and desktop. It can also perform differently in different countries. Search intent, local results, device layout, and competition all affect what appears.
+
+Use filters before making decisions. A global average may be less useful than the country and device that actually matter to your audience.
+
+## Why a position of 39 is not necessarily bad for a new site
+
+For a new site, position 39 can mean Google has discovered the page and is testing its relevance across queries. That is not a victory lap, but it is also not failure. The page may need time, stronger internal links, better content alignment, and more trust signals.
+
+Look for movement, relevance, and query quality. A page ranking around 39 for a highly relevant query may be a better opportunity than position 9 for a query that never converts or does not match the page.
+
+## Why position alone can be misleading
+
+A high position for the wrong query is not useful. A low position for a valuable query may be an opportunity. A declining average can happen when Google starts showing you for many new searches. A rising average can happen while total impressions shrink.
+
+Position is a diagnostic clue. Treat it like one member of the band, not the lead singer and the entire drum kit.
+
+## Which Search Console metrics to view together
+
+- Impressions show visibility.
+- Clicks show visits from search.
+- CTR shows how often visible results earn clicks.
+- Average position gives rough ranking context.
+- Queries show the language and intent behind the data.
+- Pages show which URLs are earning or missing opportunities.
+
+## Practical ways to improve relevant rankings
+
+Improve the page for the searches you actually want. Clarify the title, answer the question sooner, strengthen useful sections, add internal links, improve technical health, and make sure the page is not competing with another page on your site.
+
+Do not promise yourself a specific ranking gain. The goal is to make the page more useful, easier to understand, and easier for search engines to evaluate.
+
+## What to do next
+
+Open Search Console, filter one important page, and compare queries by impressions, clicks, CTR, and position. Then read the guide on [impressions with no clicks](/guides/why-website-gets-impressions-but-no-clicks) to decide whether the title, content, or intent needs work.
