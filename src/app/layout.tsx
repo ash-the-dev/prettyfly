@@ -73,6 +73,18 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           strategy="afterInteractive"
           data-site-key="eaba557f-dad4-4cd6-bd48-f004f7f807d4"
         />
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-VVLT2JVRRE"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-VVLT2JVRRE');
+          `}
+        </Script>
         <a href="#main-content" className="skip-link">
           Skip to content
         </a>
