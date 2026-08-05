@@ -24,7 +24,6 @@ const resources = [
 const legal = [
   ["Privacy", "/privacy"],
   ["Terms", "/terms"],
-  ["Contact", "/contact"],
 ];
 
 function FooterColumn({ title, links }: { title: string; links: string[][] }) {
@@ -86,7 +85,30 @@ export default function SiteFooter() {
                 </li>
               </ul>
             </div>
-            <FooterColumn title="Legal" links={legal} />
+            <div>
+              <h2 className="heading-type text-base text-white">Legal</h2>
+              <ul className="mt-4 space-y-3 font-mono">
+                {legal.map(([label, href]) => (
+                  <li key={href}>
+                    <Link href={href} className="text-sm font-bold text-white/70 underline-offset-4 hover:text-[#F45BCF] hover:underline focus:outline-none focus:ring-4 focus:ring-[#F45BCF]">
+                      {label}
+                    </Link>
+                  </li>
+                ))}
+                <li>
+                  <TrackedLink
+                    href="/contact"
+                    eventName="contact_click"
+                    eventLabel="Footer contact"
+                    category="conversion"
+                    isConversion
+                    className="text-sm font-bold text-white/70 underline-offset-4 hover:text-[#F45BCF] hover:underline focus:outline-none focus:ring-4 focus:ring-[#F45BCF]"
+                  >
+                    Contact
+                  </TrackedLink>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
         <div className="mt-10 border-t border-white/15 pt-6 text-sm text-white/55">

@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 
+import { wipTrack } from "@/lib/analytics";
+
 const topics = ["Suggest a guide", "Report a correction", "Ask a question", "Partnership inquiry", "Other"];
 
 type Errors = Partial<Record<"name" | "email" | "topic" | "message", string>>;
@@ -26,6 +28,13 @@ export default function ContactForm() {
     setErrors(nextErrors);
 
     if (Object.keys(nextErrors).length > 0) return;
+
+    wipTrack("contact_click", {
+      category: "conversion",
+      path: location.pathname,
+      isConversion: true,
+      label: topic,
+    });
 
     const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\nTopic: ${topic}\n\n${message}`);
     window.location.href = `mailto:hello@prettyflyforawebsite.com?subject=${encodeURIComponent(topic)}&body=${body}`;
