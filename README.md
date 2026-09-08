@@ -1,73 +1,53 @@
 # Pretty Fly for a Website
-> Boutique design studio energy. Built for modern web experiences.
 
-Pretty Fly for a Website is a frontend-driven project focused on crafting bold, high-polish web interfaces with strong visual identity and interaction design.
+Plain-English guides for making websites faster, healthier, easier to use, and easier to find.
 
-This project explores how design, motion, and structure come together to create experiences that feel intentional, responsive, and engaging from the first impression.
+Live site: [https://prettyflyforawebsite.com](https://prettyflyforawebsite.com)
 
-## Live Site
-https://prettyflyforawebsite.com
+Pretty Fly is an editorial/resource website built with **Next.js** and **MDX**. It publishes practical SEO, performance, website-health, analytics, accessibility, and growth content—not a boutique design-studio portfolio.
 
----
+## What the site includes
 
-## What this project showcases
-- Brand-forward UI design  
-- Responsive, layout-driven interfaces  
-- Motion and micro-interactions  
-- Modern frontend architecture using Next.js  
-- Clean visual hierarchy and typography  
+- **Guides** — MDX articles under `content/guides/`
+- **Experiments** — documented SEO/website experiments under `content/experiments/`
+- **Category hubs** — SEO, performance, website health, analytics, accessibility, growth
+- **Search** — client-side search across guides and experiments
+- **Author pages** — e.g. `/author/ash-morales`
+- **Tools** — lightweight browser tools (starting with the SEO Title Checker)
+- **Glossary** — plain-English definitions for common website terms
+- **SEO plumbing** — metadata, canonicals, sitemap, robots, Open Graph, and web manifest
+- **Analytics** — Google Analytics (`gtag`) and Commit Happens tracker with conversion events
 
----
+## Tech stack
 
-## Studio Concept
+- Next.js (App Router)
+- React
+- MDX via `next-mdx-remote` + `gray-matter`
+- Tailwind CSS v3 + PostCSS + Autoprefixer
+- TypeScript
 
-This project is designed as a boutique studio-style experience, blending:
-- design systems  
-- interaction design  
-- frontend engineering  
+## Local development
 
-The goal is to move beyond “just a website” and create something that feels like a product, a brand, and a system at the same time.
+```bash
+npm install
+npm run dev
+```
 
----
+Useful scripts:
 
-## Key Sections
+```bash
+npm run lint
+npm run typecheck
+npm run build
+```
 
-- **Hero + Studio Identity** – Strong first impression with dynamic styling and theme variations  
-- **Capabilities** – Design, motion, and engineering as unified disciplines  
-- **Work Showcase** – Concept-driven project presentation  
-- **Process (“Flight Plan”)** – Transparent breakdown of how projects move from idea to launch  
-- **Contact Experience** – Structured, user-friendly intake flow  
+## Publishing content
 
----
+- [HOW_TO_PUBLISH.md](./HOW_TO_PUBLISH.md) — how to add a guide MDX file
+- [CONTENT_GUIDELINES.md](./CONTENT_GUIDELINES.md) — editorial standards and related project boundaries with Commit Happens
 
-## Tech Stack
-- Next.js  
-- React  
-- Modern CSS / design system approach  
-- Responsive layout techniques  
-- Component-based architecture  
+New guides and experiments are picked up automatically for routes, sitemap entries, search indexing, and category listings when frontmatter is complete.
 
----
+## Related project
 
-## Purpose
-
-Pretty Fly for a Website was built to push beyond standard portfolio layouts and explore how a frontend can communicate tone, brand, and experience—not just information.
-
-It serves as both:
-- a portfolio piece  
-- a design exploration  
-- a demonstration of frontend execution and polish  
-
----
-
-## How it fits into my work
-
-This project represents my frontend and design-focused work, complementing more system-heavy projects like SecureMeBuddy.
-
-Together, they show both sides of my approach:
-- product + backend thinking  
-- interface + experience design  
-
----
-
-This project is actively evolving with new design iterations, refinements, and improvements.
+Pretty Fly for a Website and [Commit Happens](https://www.commithappens.com) are related projects. Pretty Fly hosts educational/editorial content; Commit Happens hosts product and commercial monitoring tools. Cross-links appear only where they help the reader.
